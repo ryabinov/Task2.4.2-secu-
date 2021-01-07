@@ -1,0 +1,28 @@
+
+  создаем пользователя в памяти
+  @Bean
+    public UserDetailsService users(){
+        UserDetails superadmin = User.builder()
+                .username("superadmin")
+                .password("1234")
+                .roles("ADMIN")
+                .build();
+        return new InMemoryUserDetailsManager(superadmin);
+    }
+
+создаем пользователя в базе данных
+ @Bean
+    public JdbcUserDetailsManager users(DataSource dataSource) {
+        UserDetails superadmin = User.builder()
+                    .username("superadmin")
+                    .password("1234")
+                    .roles("ADMIN")
+                    .build();
+        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
+        if(users.userExists(superadmin.getUsername())){
+            users.deleteUser(superadmin.getUsername());
+
+        }
+        users.createUser(superadmin);
+        return users;
+    }
