@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {//, UserDetailsService {
     private UserDAO userDAO;
     private RoleDAO roleDAO;
 
@@ -47,9 +47,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userDAO.getById(id);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) {
-        User user = userDAO.getUserByName(username);
-        return user;
-    }
 }

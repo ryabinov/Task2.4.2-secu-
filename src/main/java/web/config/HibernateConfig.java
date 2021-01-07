@@ -30,8 +30,7 @@ public class HibernateConfig {
         this.environment = environment;
     }
 
-    /************* Start Spring JPA config details **************/
-    @Bean(name = "entityManagerFactory")
+     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactoryBean() {
         LocalContainerEntityManagerFactoryBean lcemfb = new LocalContainerEntityManagerFactoryBean();
         lcemfb.setJpaVendorAdapter(getJpaVendorAdapter());
@@ -55,9 +54,7 @@ public class HibernateConfig {
         return jpaTransactionManager;
     }
 
-    /************* End Spring JPA config details **************/
-
-    @Bean
+   @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
