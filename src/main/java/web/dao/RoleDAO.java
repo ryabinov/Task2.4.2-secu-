@@ -14,4 +14,5 @@ public interface RoleDAO {
     Role getRoleByName(String rolename);
 
     Role createRoleIfNotFound(String name, long id);
+
 }

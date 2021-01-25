@@ -1,9 +1,8 @@
 package web.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import web.dao.RoleDAO;
 import web.model.Role;
@@ -18,10 +17,6 @@ public class AdminController {
 
     private final UserService userService;
     private final RoleDAO roleDAO;
-
-    @Autowired
-    PasswordEncoder bCryptPasswordEncoder;
-
 
     public AdminController(UserService userService, RoleDAO roleDAO) {
         this.userService = userService;
@@ -46,34 +41,24 @@ public class AdminController {
     }
 
     @GetMapping(value = "/edit/{id}")
-    public String editPage(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user",userService.getById(id));
+    public String editPage(@PathVariable("id") long id, ModelMap model) {
+
         HashSet<Role> Setroles = new HashSet<>();
         Role role_admin = roleDAO.createRoleIfNotFound("ADMIN", 1L);
         Role role_user = roleDAO.createRoleIfNotFound("USER", 2L);
         Setroles.add(role_admin);
         Setroles.add(role_user);
         model.addAttribute("rolelist", Setroles);
-        return "EditUser";
+        model.addAttribute("user", userService.getById(id));
+        return "editUser";
 
     }
 
     @PostMapping(value = "/edit")
     public String editUser(
-            @ModelAttribute("id") Long id,
-            @ModelAttribute("name") String name,
-            @ModelAttribute("password") String password,
-            @ModelAttribute("lastname") String lastname,
-            @ModelAttribute("age") byte age,
+            @ModelAttribute("user") User user,
             @RequestParam("roles") String[] roles
     ) {
-        User user = userService.getById(id);
-        user.setName(name);
-        user.setLastname(lastname);
-        user.setAge(age);
-        if (!password.isEmpty()) {
-            user.setPassword(password);
-        }
         Set<Role> Setroles = new HashSet<>();
         for (String role : roles) {
             if (role.equals("ADMIN")) {
@@ -85,7 +70,7 @@ public class AdminController {
             }
         }
         user.setRoles(Setroles);
-        userService.save(user);
+        userService.uppdate(user);
         return "redirect:/admin";
     }
 

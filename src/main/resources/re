@@ -1,28 +1,31 @@
+https://habr.com/ru/company/otus/blog/488418/
+https://ru.wikibooks.org/wiki/Spring_Security/%D0%A2%D0%B5%D1%85%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9_%D0%BE%D0%B1%D0%B7%D0%BE%D1%80_Spring_Security
+https://habr.com/ru/post/203318/
+https://sysout.ru/dobavlenie-spring-security-v-proekt-nastrojki-po-umolchaniyu/
 
-  создаем пользователя в памяти
-  @Bean
-    public UserDetailsService users(){
-        UserDetails superadmin = User.builder()
-                .username("superadmin")
-                .password("1234")
-                .roles("ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(superadmin);
-    }
-
-создаем пользователя в базе данных
- @Bean
-    public JdbcUserDetailsManager users(DataSource dataSource) {
-        UserDetails superadmin = User.builder()
-                    .username("superadmin")
-                    .password("1234")
-                    .roles("ADMIN")
-                    .build();
-        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
-        if(users.userExists(superadmin.getUsername())){
-            users.deleteUser(superadmin.getUsername());
-
-        }
-        users.createUser(superadmin);
-        return users;
-    }
+переменные приватные все
+5:49
+что за @Autowired       PasswordEncoder bCryptPasswordEncoder;
+5:49
+голый
+5:50
+    public String editUser(
+            @ModelAttribute("id") Long id,
+            @ModelAttribute("name") String name,
+            @ModelAttribute("password") String password,
+            @ModelAttribute("lastname") String lastname,
+            @ModelAttribute("age") byte age,
+            @RequestParam("roles") String[] roles
+    )
+5:50
+вот эту портянку тоже убери
+5:50
+можешь отедльно роли принимать
+5:51
+но остальные поля собери в юзера
+5:51
+в остальном норм
+5:52
+когда исправишь и будешь вопросы готов сдать?
+5:52
+1-2 модуль
