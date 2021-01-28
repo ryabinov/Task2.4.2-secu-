@@ -8,7 +8,7 @@ import web.dao.UserDAO;
 import web.model.User;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService{
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserDAO userDAO;
 
@@ -23,17 +23,5 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         return user;
     }
 }
-//private Collection<? extends GrantedAuthority> getAuthorities(
-//  Collection<Role> roles) {
-//    List<GrantedAuthority> authorities
-//      = new ArrayList<>();
-//    for (Role role: roles) {
-//        authorities.add(new SimpleGrantedAuthority(role.getName()));
-//        role.getPrivileges().stream()
-//         .map(p -> new SimpleGrantedAuthority(p.getName()))
-//         .forEach(authorities::add);
-//    }
-//
-//    return authorities;
-//}
+
 

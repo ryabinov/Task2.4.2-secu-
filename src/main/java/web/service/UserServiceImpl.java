@@ -2,8 +2,6 @@ package web.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import web.dao.UserDAO;
 import web.dao.RoleDAO;
 import web.model.User;
@@ -13,7 +11,7 @@ import java.util.List;
 
 
 @Service
-public class UserServiceImpl implements UserService {//, UserDetailsService {
+public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
     private RoleDAO roleDAO;
 

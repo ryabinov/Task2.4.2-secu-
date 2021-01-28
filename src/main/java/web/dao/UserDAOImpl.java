@@ -3,8 +3,6 @@ package web.dao;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
-import web.service.UserService;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -26,8 +24,7 @@ public class UserDAOImpl implements UserDAO {
     @Transactional
     @Override
     public void save(User user) {
-        User managed = entityManager.merge(user);
-        entityManager.persist(managed);
+        entityManager.persist(user);
     }
 
     @Transactional

@@ -24,7 +24,7 @@ public class AdminController {
 
     @GetMapping
     public String allUsers(Model model) {
-        model.addAttribute("usersList",userService.allUsers());
+        model.addAttribute("usersList", userService.allUsers());
         return "usersPage";
     }
 
@@ -71,22 +71,22 @@ public class AdminController {
             user.setPassword(password);
         }
 
-       Set<Role> Setroles = new HashSet<>();
+        Set<Role> Setroles = new HashSet<>();
         for (String role : roles) {
             if (role.equals("ADMIN")) {
-                  Role role_admin = roleDAO.createRoleIfNotFound("ADMIN", 1L);
-                  Setroles.add(role_admin);
+                Role role_admin = roleDAO.createRoleIfNotFound("ADMIN", 1L);
+                Setroles.add(role_admin);
             }
             if (role.equals("USER")) {
                 Role role_user = roleDAO.createRoleIfNotFound("USER", 2L);
                 Setroles.add(role_user);
             }
-             }
-
-            user.setRoles(Setroles);
-            userService.uppdate(user);
-            return "redirect:/admin";
         }
+
+        user.setRoles(Setroles);
+        userService.uppdate(user);
+        return "redirect:/admin";
+    }
 
 
     @GetMapping(value = "/delete/{id}")
