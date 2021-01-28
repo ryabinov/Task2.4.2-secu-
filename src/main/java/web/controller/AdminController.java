@@ -41,7 +41,7 @@ public class AdminController {
     }
 
     @GetMapping(value = "/edit/{id}")
-    public String editPage(@PathVariable("id") long id, ModelMap model) {
+    public String editPage(@PathVariable("id") Long id, Model model) {
 
         HashSet<Role> Setroles = new HashSet<>();
         Role role_admin = roleDAO.createRoleIfNotFound("ADMIN", 1L);
@@ -56,23 +56,39 @@ public class AdminController {
 
     @PostMapping(value = "/edit")
     public String editUser(
-            @ModelAttribute("user") User user,
+            @RequestParam("id") Long id,
+            @RequestParam("name") String name,
+            @RequestParam("password") String password,
+            @RequestParam("lastname") String lastname,
+            @RequestParam("age") byte age,
             @RequestParam("roles") String[] roles
     ) {
-        Set<Role> Setroles = new HashSet<>();
+        User user = userService.getById(id);
+        user.setName(name);
+        user.setLastname(lastname);
+        user.setAge(age);
+
+        if (!password.isEmpty()) {
+            user.setPassword(password);
+        }
+
+       Set<Role> Setroles = new HashSet<>();
         for (String role : roles) {
             if (role.equals("ADMIN")) {
-                Role role_admin = roleDAO.createRoleIfNotFound("ADMIN", 1L);
-                Setroles.add(role_admin);
-            }if (role.equals("USER")) {
+                  Role role_admin = roleDAO.createRoleIfNotFound("ADMIN", 1L);
+                  Setroles.add(role_admin);
+            }
+            if (role.equals("USER")) {
                 Role role_user = roleDAO.createRoleIfNotFound("USER", 2L);
                 Setroles.add(role_user);
             }
+             }
+
+            user.setRoles(Setroles);
+            userService.uppdate(user);
+            return "redirect:/admin";
         }
-        user.setRoles(Setroles);
-        userService.uppdate(user);
-        return "redirect:/admin";
-    }
+
 
     @GetMapping(value = "/delete/{id}")
     public String deleteUser(@ModelAttribute("user") User user) {
