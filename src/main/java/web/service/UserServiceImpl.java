@@ -50,4 +50,10 @@ public class UserServiceImpl implements UserService {
         userDAO.uppdate(user);
     }
 
+    @Override
+    public User getUserByName(String username) {
+        return userDAO.getUserByName(username);
+    }
+
+
 }

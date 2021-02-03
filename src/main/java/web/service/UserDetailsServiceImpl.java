@@ -11,7 +11,6 @@ import web.model.User;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserDAO userDAO;
-
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
