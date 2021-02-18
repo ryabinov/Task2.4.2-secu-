@@ -24,7 +24,8 @@ public class UserDAOImpl implements UserDAO {
     @Transactional
     @Override
     public void save(User user) {
-        entityManager.persist(user);
+        User managed = entityManager.merge(user);
+        entityManager.persist(managed);
     }
 
     @Transactional
@@ -32,12 +33,6 @@ public class UserDAOImpl implements UserDAO {
     public void delete(User user) {
         User managed = entityManager.merge(user);
         entityManager.remove(managed);
-    }
-
-    @Transactional
-    @Override
-    public void uppdate(User user) {
-        entityManager.merge(user);
     }
 
     @Override
