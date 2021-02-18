@@ -72,6 +72,7 @@ public class AdminController {
         }
 
         Set<Role> Setroles = new HashSet<>();
+
         for (String role : roles) {
             if (role.equals("ADMIN")) {
                 Role role_admin = roleDAO.createRoleIfNotFound("ADMIN", 1L);
